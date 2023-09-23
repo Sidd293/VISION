@@ -57,7 +57,7 @@ async function query(filename) {
     data,
 		{
 			headers: { Authorization: "Bearer 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" },
-		
+
 		}
 	);
 	const result = await response.data;
@@ -82,7 +82,7 @@ console.log(__dirname)
           console.log(JSON.stringify(response));
           res.send({
               status:"successfull",
-              captipn : response,
+              caption : response,
           })
       }).catch(error=>{
         console.log(error);
