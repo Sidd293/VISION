@@ -76,37 +76,41 @@ app.use(bodyParser({
 
 // output = query("cats.jpg")
 
+async function query(file) {
+	const data = file;
+	const response = await fetch(
+		"https://api-inference.huggingface.co/models/Salesforce/blip-image-captioning-large",
+		{
+			headers: { Authorization: "Bearer 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" },
+			method: "POST",
+			body: data,
+		}
+	);
+	const result = await response.json();
+	return result;
+}
+
 
 
 
 
 app.get("/describe", (req, res) => {
-    axios({
-        method: 'post',
-        url: 'https://api-inference.huggingface.co/models/Salesforce/blip-image-captioning-large',
-         data : "",
-        headers: {
-            'Content-Type': 'application/json',
-            "Authorization": "Bearer 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"
-        },
-    }).then((response) => {
-        console.log("response came successfully");
-        console.log(response);
-res.status(200).send({status:"successfull", response
-:response});
-    }).catch((error) => {
-        console.log("response didnt came good");
-        console.log(error);
-res.status(404).send({status:"successfull", response
-:"a book kept on the table"});
-
+    console.log(req.body);
+    query(req.body.imageFile).then((response) => {
+        console.log(JSON.stringify(response));
+        res.send({
+            status:"successfull",
+            captiopn : response,
+        })
+    }).catch(error=>{
+        res.send({
+            status:"unsuccessfull",
+        })
     });
 })
 app.post("/data", (req, res) => {
 
-    res.send({
-        name: req.body
-    });
+    res.send("<img src  = 'https://res.cloudinary.com/sidd293/image/upload/v1695447406/activa-6g-right-front-three-quarter_ylfuah.webp'></img>");
 
 
 });
@@ -121,8 +125,8 @@ app.get("/", (req, res) => {
 
 
 
-app.listen('80',()=>{
-    console.log("listening on port 80");
+app.listen('8080',()=>{
+    console.log("listening on port 8080");
 })
 
 // const options = {
