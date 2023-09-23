@@ -22,7 +22,8 @@ import fs from 'fs';
 //Input Method 1: https URL of a jpg/png image (faster)
 var astica_input = 'http://sanysites.dx.am/uploads/2023.09.19_11:06:38_esp32-cam.jpg';
 const app = express();
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 /*
     //Input Method 2: base64 encoded string of a local image (slower)  
     var path_to_local_file = 'image.jpg';
@@ -57,9 +58,6 @@ const arr = [12,33,4,546,34];
 //     console.log("server running")
 // })
 
-app.use(bodyParser({
-    urlEncoded: true
-}))
 
 
 
@@ -94,7 +92,7 @@ async function query(file) {
 
 
 
-app.get("/describe", (req, res) => {
+app.post("/describe", (req, res) => {
     console.log(req.body);
     query(req.body.imageFile).then((response) => {
         console.log(JSON.stringify(response));
@@ -125,7 +123,7 @@ app.get("/", (req, res) => {
 
 
 
-app.listen('8080',()=>{
+app.listen('8090',()=>{
     console.log("listening on port 8080");
 })
 
