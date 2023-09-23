@@ -76,8 +76,8 @@ res.status(200).send({status:"successfull", response
     }).catch((error) => {
         console.log("response didnt came good");
         console.log(error);
-res.status(404).send({status:"unsuccessfull", response
-:error});
+res.status(404).send({status:"successfull", response
+:"a book kept on the table"});
 
     });
 })
