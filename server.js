@@ -60,16 +60,37 @@ const arr = [12,33,4,546,34];
 app.use(bodyParser({
     urlEncoded: true
 }))
+
+
+
+// import requests
+
+// API_URL = "https://api-inference.huggingface.co/models/Salesforce/blip-image-captioning-large"
+// headers = {"Authorization": "Bearer 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"}
+
+// def query(filename):
+//     with open(filename, "rb") as f:
+//         data = f.read()
+//     response = requests.post(API_URL, headers=headers, data=data)
+//     return response.json()
+
+// output = query("cats.jpg")
+
+
+
+
+
 app.get("/describe", (req, res) => {
     axios({
         method: 'post',
-        url: 'https://vision.astica.ai/describe',
-        data: requestData,
+        url: 'https://api-inference.huggingface.co/models/Salesforce/blip-image-captioning-large',
+         data : "",
         headers: {
             'Content-Type': 'application/json',
+            "Authorization": "Bearer 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"
         },
     }).then((response) => {
-        console.log("response came seuccessfully");
+        console.log("response came successfully");
         console.log(response);
 res.status(200).send({status:"successfull", response
 :response});
