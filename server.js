@@ -69,8 +69,12 @@ app.get("/describe", (req, res) => {
             'Content-Type': 'application/json',
         },
     }).then((response) => {
+        console.log("response came seuccessfully");
+        console.log(response);
 res.status(200).json(response);
     }).catch((error) => {
+        console.log("response didnt came good");
+        console.log(error);
 res.status(404).json(error);
 
     });
