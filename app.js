@@ -3,7 +3,7 @@ const multer = require('multer');
 const ejs = require('ejs');
 const path = require('path');
 const fs = require('fs')
-const fetch = require('node-fetch')
+// const fetch = require('node-fetch')
 const axios = require('axios')
 // Set The Storage Engine
 const storage = multer.diskStorage({
@@ -52,15 +52,15 @@ app.get('/', (req, res) => res.render('index'));
 
 async function query(filename) {
 	const data = fs.readFileSync(filename);
-	const response = await fetch(
+	const response = await axios.post(
 		"https://api-inference.huggingface.co/models/Salesforce/blip-image-captioning-large",
+    data,
 		{
 			headers: { Authorization: "Bearer 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" },
-			method: "POST",
-			body: data,
+		
 		}
 	);
-	const result = await response.json();
+	const result = await response.data;
 	return result;
 }
 
